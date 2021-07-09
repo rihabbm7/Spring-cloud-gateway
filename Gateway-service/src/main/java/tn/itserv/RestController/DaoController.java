@@ -31,10 +31,10 @@ public class DaoController {
 	
 
 	
-	@GetMapping("/cms-dao/")
+	@GetMapping("/cms-dao/sas_campaigns")
 	@CircuitBreaker(name=DAO_SERVICE,fallbackMethod="daoFallback")
 	public ResponseEntity<String> daoService(){
-		String response =restTemplate.getForObject("http://localhost:8100/sas_campaign", String.class);
+		String response =restTemplate.getForObject("http://localhost:8100/sas_campaigns", String.class);
 				return new ResponseEntity<String> (response,HttpStatus.OK);
 	}
 	@PutMapping("/cms-dao/updatecampaigns/{code}")
