@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +27,9 @@ import tn.itserv.model.SasCampaign;
 
 public class DaoController {
 	private static final String DAO_SERVICE="cms-dao";
-	@Autowired 
-	private RestTemplate restTemplate;
-	
+	@Autowired private RestTemplate restTemplate;
+	@Value("${app.version}")
+	private String version;
 
 	
 	@GetMapping("/cms-dao/sas_campaigns")
@@ -58,5 +59,10 @@ public class DaoController {
 		if (t.getClass().equals(NullPointerException.class))
 			{return new ResponseEntity<String>("null values inaccepted" ,HttpStatus.OK);}
 		return new ResponseEntity<String>("Service is Down " ,HttpStatus.OK);
+	}
+	
+	@GetMapping("/version")
+	public String getAppVersion(){
+		return version;
 	}
 }
